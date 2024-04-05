@@ -1,5 +1,5 @@
 node{
-        stage('Checkout') {
+        stage('Git Checkout') {
                   git branch: 'main', url: 'https://github.com/persevcareers/k8s.git'
          }
         stage('Code Quality Check via SonarQube') {
@@ -11,6 +11,11 @@ node{
                     -Dsonar.css.node=. \
                     -Dsonar.host.url=http://13.233.214.130:9000 \
                     -Dsonar.login=sqa_2cbb97498445cf636b3c9f90ee491100a5d4b1f2"
+        }
+        stage('Docker build'){
+                sh "sudo cd docker-reactjs"
+                sh "sudo docker build -t docker-reactjs ."
+                sh "sudo docker-compose up -d"
         }
     }
 }
