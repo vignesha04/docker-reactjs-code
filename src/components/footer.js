@@ -24,7 +24,7 @@ export default class Footer extends Component {
                 <div className="footer-copyright">
                   <div className="container">
                   © 2024 Copyright Text
-                  <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+                  <a className="grey-text text-lighten-4 right" href="#!">Thank You</a>
                   </div>
                 </div>
               </footer>
