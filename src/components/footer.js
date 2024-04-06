@@ -8,9 +8,10 @@ export default class Footer extends Component {
                 <div className="container">
                   <div className="row">
                     <div className="col l6 s12">
-                      <h5 className="white-text">Sample React Webapp by VICKY</h5>
+                      <h5 className="white-text">ReactJs Web Application by VICKY</h5>
                       <p className="grey-text text-lighten-4"> ReactJs Application deployment by using Kubernetes.</p>
-                      <p className="grey-text text-lighten-4"> Git --> Jenkins --> SonarQube --> Docker --> Kubernetes</p>
+                      <p className="grey-text text-lighten-4"> Workflow of the Application deployment:</p>
+                      <p className="grey-text text-lighten-4"> Git → Jenkins → SonarQube → Docker → Kubernetes</p>
                     </div>
                     <div className="col l4 offset-l2 s12">
                       <h5 className="white-text">Links</h5>
