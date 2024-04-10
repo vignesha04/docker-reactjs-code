@@ -4,4 +4,4 @@ services:
     image: docker-reactjs
     restart: always
     ports:
-      - 80:80
+      - 8686:80
