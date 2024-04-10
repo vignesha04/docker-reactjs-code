@@ -6,27 +6,33 @@ node{
             def scannerHome = tool 'sonarqube'; 
             withSonarQubeEnv("sonarqube") {
                 sh "${tool("sonarqube")}/bin/sonar-scanner \
-                    -Dsonar.projectKey=Reactjs_Proj \
+                    -Dsonar.projectKey=ReactJs_Project \
                     -Dsonar.sources=. \
                     -Dsonar.css.node=. \
-                    -Dsonar.host.url=http://13.126.116.29:9000 \
-                    -Dsonar.login=sqa_a25dfd635c1408554ca09cf3e4b732d89286a1d6"
+                    -Dsonar.host.url=http://13.201.43.125:9000 \
+                    -Dsonar.login=sqa_c1e3acf659d084b71ffe06de909c75d353f615d2"
         }
         stage('Docker build'){
-                // sh "pwd"
-                // sh "cd docker-reactjs"
+                sh "pwd"
                 sh "docker build -t docker-reactjs ."
                 sh "docker-compose up -d"
         }
-        stage('Docker build'){
-                sh 'docker tag docker-reactjs:latest vigneshv04/reactjs_app:v1.0'
+        stage('Docker scan using Trivy'){
+                sh 'trivy image reactjs_app:latest'
         }
-        stage('Docker push'){
+        stage('Docker Login'){
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
                 sh 'docker login -u vigneshv04 -p ${dockerhub}'
             }
-                sh 'docker images'
-                sh 'docker push vigneshv04/reactjs_app:v1.0'
+        }
+        stage('Docker Tag & push'){
+                sh 'docker tag docker-reactjs:latest vigneshv04/reactjs_app:v1.2'
+                sh 'docker push vigneshv04/reactjs_app:v1.2'
+        }
+        stage('kubernetes test connection'){
+                kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.35.151:6443') {
+                sh 'kubectl get nodes'
+            }
         }
     }
 }
